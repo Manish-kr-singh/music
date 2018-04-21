@@ -85,19 +85,29 @@ app.post('/ideas', (req, res) => {
   if(!req.body.description){
     errors.push({text:'Please add some details'});
   }
+  if(!req.body.album){
+    errors.push({text:'Please add a album'});
+  }
+  if(!req.body.releaseDate){
+    errors.push({text:'Please add a date'});
+  }
 
   if(errors.length > 0){
     res.render('ideas/add', {
       errors: errors,
       name: req.body.name,
       years_active: req.body.years_active,
-      description: req.body.description
+      description: req.body.description,
+      album: req.body.album,
+      releaseDate: req.body.releaseDate
     });
   } else {
     const newUser = {
       name: req.body.name,
       years_active: req.body.years_active,
-      description: req.body.description
+      description: req.body.description,
+      album: req.body.album,
+      releaseDate: req.body.releaseDate
     }
     new Idea(newUser)
       .save()
@@ -117,7 +127,8 @@ app.put('/ideas/:id', (req, res) => {
     idea.name = req.body.name;
     idea.years_active = req.body.years_active;
     idea.description = req.body.description;
-
+    idea.album = req.body.album;
+    idea.releaseDate = req.body.releaseDate;
     idea.save()
       .then(idea => {
         res.redirect('/ideas');

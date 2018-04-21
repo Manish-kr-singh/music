@@ -14,6 +14,15 @@ const IdeaSchema = new Schema({
   years_active: {
     type: Number,
     required: true
+  },
+  album:{
+    type: String,
+    required: true
+  },
+  releaseDate:{
+    type: Date,
+    required: true,
+    default: Date.now()
   }
 });
 
